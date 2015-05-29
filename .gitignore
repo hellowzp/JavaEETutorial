@@ -1,0 +1,13 @@
+*.class
+.DS_Store
+
+bin/
+
+build/
+dist/
+
+
+# Package Files #
+*.war
+*.ear
+
