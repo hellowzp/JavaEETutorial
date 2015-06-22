@@ -1,4 +1,4 @@
-package rest;
+package ws;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;

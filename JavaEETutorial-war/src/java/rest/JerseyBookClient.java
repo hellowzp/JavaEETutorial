@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rest.client;
+package rest;
 
 import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.client.Client;
