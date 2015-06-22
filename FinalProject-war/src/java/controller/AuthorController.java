@@ -26,7 +26,7 @@ public class AuthorController implements Serializable{
     private AuthorFacade authorFacade;
 
     private Author a=new Author();
-
+    //int index = authorFacade.count() + 1;
     public Author getS() {
         return a;
     }
@@ -46,6 +46,7 @@ public class AuthorController implements Serializable{
         }
     
     public String add(){
+        
         this.authorFacade.create(this.a);
         this.a=new Author();        
         return "authorList";

@@ -5,6 +5,7 @@
  */
 package Facade;
 
+import interceptors.Logging;
 import java.util.List;
 import javax.persistence.EntityManager;
 
@@ -12,6 +13,7 @@ import javax.persistence.EntityManager;
  *
  * @author SYLUN
  */
+ @Logging
 public abstract class AbstractFacade<T> {
     private Class<T> entityClass;
 

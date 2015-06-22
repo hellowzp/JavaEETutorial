@@ -5,26 +5,49 @@
  */
 package SessionBean;
 
+import javax.annotation.Resource;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
+import javax.ejb.MessageDrivenContext;
+import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
+import javax.jms.TextMessage;
 
 /**
  *
  * @author SYLUN
  */
-@MessageDriven(activationConfig = {
-    @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "jms/dest"),
-    @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
+@MessageDriven(mappedName = "jms/NotificationQueue", activationConfig = {
+    @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
+    @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "jms/dest")
 })
 public class NotificationBean implements MessageListener {
     
     public NotificationBean() {
     }
     
+    @Resource
+    private MessageDrivenContext mdc;
     @Override
     public void onMessage(Message message) {
-    }
-    
+     
+        TextMessage msg = null;
+        try {
+            if (message instanceof TextMessage) {
+                msg = (TextMessage) message;
+                System.out.println("A Message received in MDB: " +
+                msg.getText());
+            } else {
+               System.out.println("Message of wrong type: " +
+               message.getClass().getName());
+                
+            }
+        } catch (JMSException e) {
+            e.printStackTrace();
+            mdc.setRollbackOnly();
+        } catch (Throwable te) {
+            te.printStackTrace();
+        }
+    } 
 }

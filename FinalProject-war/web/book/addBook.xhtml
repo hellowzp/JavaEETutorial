@@ -2,25 +2,32 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Create New Book</title>
     </h:head>
     <h:body>
         <f:view>
-            <h:form>
+            <h:form id="addbooks">
                 
-                <h1><h:outputText value="Create/Edit"/></h1>
-                <h:panelGrid columns="2">                    
-                    <h:outputLabel value="ID:" for="id" />
-                    <h:inputText id="id" value="#{bookController.b.booksId}" title="ID" />
-                    <h:outputLabel value="Name:" for="name" />
-                    <h:inputText id="name" value="#{bookController.b.name}" title="Name" />
-                    <h:outputLabel value="AuthorID:" for="parentId" />
-                    <h:inputText id="parentid" value="#{bookController.b.parentId}" title="AuthorID" />                     
+                <h1><h:outputText value="Create New Book"/></h1>
+                <p:panelGrid columns="2">                    
+                    <p:outputLabel value="ID:" for="id" />
+                    <p:inputText id="id" value="#{bookController.b.booksId}" title="ID" />
+                    <p:outputLabel value="Name:" for="name" />
+                    <p:inputText id="name" value="#{bookController.b.name}" title="Name" />
+                    <p:outputLabel value="Author:" for="parentId" />
+                         <p:selectOneMenu value="parentid" id="parentId">
+                             <c:forEach var="aid" items="#{authorController.findAll()}" >
+                                 <f:selectItem itemLabel="#{aid.name}" itemValue="#{aid.id}">
+                         </f:selectItem>
+                             </c:forEach>   							
+                  </p:selectOneMenu>                   
                     
-                    <h:commandButton value="Save" action="#{bookController.add()}"></h:commandButton>
-                </h:panelGrid>
+                    <p:commandButton value="Save" action="#{bookController.add()}" icon="ui-icon-check"></p:commandButton>
+                </p:panelGrid>
             </h:form>
         </f:view>
 

@@ -44,8 +44,9 @@ public class Books implements Serializable {
     @Size(max = 100)
     @Column(name = "NAME")
     private String name;
-    @JoinColumn(name = "PARENT_ID", referencedColumnName = "ID")
+    
     @ManyToOne
+    @JoinColumn(name = "PARENT_ID", referencedColumnName = "ID")   
     private Author parentId;
 
     //@OneToMany(mappedBy = "parentId")    

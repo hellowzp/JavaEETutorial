@@ -3,33 +3,57 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
       
     <h:head>
-        <title>Student Management</title>
+        <title>Book Management</title>
     </h:head>
     <h:body>
-        <h:form> 
-            <h:link value="Back To Main" outcome="/index"></h:link> 
-          
-            <h:link value=" / Add New Book" outcome="addBook"></h:link>              
-                <br>  </br>
-            
-            <h:dataTable var="s" value="#{bookController.findAll()}" border="1" cellpadding="2" cellspacing="2">
-                 <h:column>
+        <h:form id="myform"> 
+           
+             
+             <p:panel id="listbook" header="List of student">
+             <p:dataTable var="s" value="#{bookController.students}">
+                 <p:column>
                      <f:facet name="header">Id</f:facet>
-                     <h:outputText value="#{s.booksId}"></h:outputText>
-                 </h:column>
-                 <h:column>
+                     <h:outputText value="#{s.studentId}"></h:outputText>
+                 </p:column>
+                 <p:column>
                      <f:facet name="header">Name</f:facet>
                      <h:outputText value="#{s.name}"></h:outputText>
-                 </h:column>
-                <h:column>
+                 </p:column>
+                 <p:column>
+                     <f:facet name="header">GENDER</f:facet>
+                     <h:outputText value="#{s.gender}"></h:outputText>
+                 </p:column>   
+                  <p:column>
+                     <f:facet name="header">Age</f:facet>
+                     <h:outputText value="#{s.age}"></h:outputText>
+                 </p:column>   
+                           
+                 
+             </p:dataTable> 
+            </p:panel>
+            
+             <br>  </br>
+            
+             <p:panel id="book" header="Books">
+            <p:dataTable var="s" value="#{bookController.findAll()}" >
+                 <p:column>
+                     <f:facet name="header">Id</f:facet>
+                     <h:outputText value="#{s.booksId}"></h:outputText>
+                 </p:column>
+                 <p:column>
+                     <f:facet name="header">Name</f:facet>
+                     <h:outputText value="#{s.name}"></h:outputText>
+                 </p:column>
+                <p:column>
                      <f:facet name="header">Author_ID</f:facet>
                      
                      <h:outputText value="#{s.parentId.id}"></h:outputText>
                      
-                 </h:column> 
+                 </p:column> 
                 <!--
                  <h:column>
                      <f:facet name="header">Author_ID</f:facet>
@@ -40,14 +64,33 @@
                 -->
                 
                 
-                <h:column>
+                <p:column>
                      <f:facet name="header">Option</f:facet>
-                     <h:commandLink value="Delete" action="#{bookController.delete(s)}" onclick="return confirm('Are you sure?')"></h:commandLink>                     
-                     <h:commandLink value=" Edit" action="#{bookController.edit(s)}"> </h:commandLink>
-                 </h:column>               
+                     <p:commandButton value="Delete" action="#{bookController.delete(s)}" onclick="return confirm('Are you sure?')"></p:commandButton>                     
+                     <p:commandButton value=" Edit" action="#{bookController.edit(s)}"> </p:commandButton>
+                 </p:column>               
                  
-             </h:dataTable>     
-        
+             </p:dataTable>  
+            </p:panel>
+             <br> </br>
+             <p:panel id="search" header="Search">
+                 <p:outputLabel value="Search Students that bought from BOOKID:" />             
+                <p:inputText id="input" size="10"/> <!-- no binding here -->
+                <p:commandButton value=" Search" action="#{bookController.SearchStudents()}" />
+ 
+                <br>  </br>  
+             
+         
+                <h2> Here is the list of the student that bought BookID: #{bookController.id}</h2>
+                 
+                 
+                 
+             </p:panel>
+            
+            <br>  </br> 
+            <p:commandButton value="Back To Main" action="/index"></p:commandButton>          
+            <p:commandButton value="Add New Book" action="addBook"></p:commandButton>             
+                <br>  </br>
         </h:form>         
     </h:body>
 </html>

@@ -6,6 +6,7 @@
 package Facade;
 
 import Entity.Student;
+import interceptors.Logging;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,6 +16,7 @@ import javax.persistence.PersistenceContext;
  * @author SYLUN
  */
 @Stateless
+//@Logging
 public class StudentFacade extends AbstractFacade<Student> {
     @PersistenceContext(unitName = "FinalProject-ejbPU")
     private EntityManager em;

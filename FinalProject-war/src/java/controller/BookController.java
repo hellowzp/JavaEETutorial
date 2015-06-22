@@ -14,6 +14,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Named;
 import Entity.*;
+import Facade.AuthorFacade;
+import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -24,10 +28,20 @@ import Entity.*;
 @SessionScoped
 public class BookController implements Serializable{
     @EJB
+    private AuthorFacade authorFacade;
+    @EJB
     private BooksFacade booksFacade;
 
-      private Books b=new Books();
+    private Books b=new Books();
+    List<Student> students;
+    private int aid;
+    public List<Student> getStudents() {
+        return students;
+    }
 
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
     public Books getB() {
         return b;
     }
@@ -35,7 +49,36 @@ public class BookController implements Serializable{
     public void setB(Books b) {
         this.b = b;
     }
-      
+    
+    
+    
+       
+    public int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    public String SearchStudents(){        
+       // System.out.println("start search");
+        HttpServletRequest request = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        this.id = Integer.parseInt(request.getParameter("myform:input")); 
+        //System.out.println("now get id"+ id);
+        Books bo = booksFacade.find(id);
+        students = bo.getStudent(); 
+        
+        
+        
+        for(int i = 0; i < students.size(); i++){                
+         System.out.println("StudentID " + i + ": " + students.get(i).getName()+ " and Gender:" + students.get(i).getGender());
+         //list.add("BookID " + i + ": " + books.get(i).getName()+ " and ParentID:" + books.get(i).getParentId().toString());
+        }
+        return "bookList";
+      }      
+    
     
     public BookController() {
     }
@@ -44,19 +87,33 @@ public class BookController implements Serializable{
     }
     
     public String add(){
-        this.booksFacade.create(this.b);
-        this.b=new Books();        
-        return "bookList";
+       HttpServletRequest request = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+       this.aid = Integer.parseInt(request.getParameter("addbooks:parentId")); 
+       Author author= this.authorFacade.find(aid); 
+       b.setParentId(author);
+        
+       this.booksFacade.create(this.b);
+       this.b=new Books();        
+       return "bookList";
     }
     
     public void delete(Books b){
+        
+        
         this.booksFacade.remove(b);
     }
     public String edit(Books b){
+         
         this.b=b;
         return "editBook";
     }
     public String edit(){
+       HttpServletRequest request = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+       this.aid = Integer.parseInt(request.getParameter("editbooks:parentId")); 
+       Author authorq= this.authorFacade.find(aid); 
+       b.setParentId(authorq);
+        
+        
         this.booksFacade.edit(this.b);
         this.b=new Books();
         return "bookList";
@@ -66,5 +123,7 @@ public class BookController implements Serializable{
         this.b.getStudent().add(s);
         return "studentList";
     }
+     
+     
     
 }

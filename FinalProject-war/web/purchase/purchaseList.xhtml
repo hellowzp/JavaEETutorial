@@ -2,32 +2,43 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
       
     <h:head>
         <title>Purchase Transaction</title>
     </h:head>
     <h:body>
-        <h:form> 
-            <h:link value="Back To Main" outcome="/index"></h:link> 
+        <h:form id="purchaseform"> 
+            
             
             <br> </br>
-             <h:outputLabel value="StudentID:" />
-                 <h:selectOneMenu value="student">
-                     <f:selectItem itemValue="1" itemLabel="1" />
-                     <f:selectItem itemValue="2" itemLabel="2" />	   							
-                  </h:selectOneMenu>
+            <p:panel id="purchase" header="Purchase">
+             <p:outputLabel value="Student:" />
+             <br> </br>
+                 <p:selectOneMenu value="studentid" id="studentid">
+                     <c:forEach var="sid" items="#{studentController.findAll()}" >
+                         <f:selectItem itemLabel="#{sid.name}" itemValue="#{sid.studentId}">
+                         </f:selectItem>
+                     </c:forEach>   							
+                  </p:selectOneMenu>
              <br> </br>  
-              <h:outputLabel value="BookID:" />
-                     <h:selectOneMenu value="book">
-                        <f:selectItem itemValue="3" itemLabel="3" />
-                        <f:selectItem itemValue="4" itemLabel="4" />	   							
-                    </h:selectOneMenu>	                                  
+              <p:outputLabel value="Book:" />
+              <br> </br>
+                      <p:selectOneMenu value="bookid" id="bookid">
+                          <c:forEach var="bid" items="#{bookController.findAll()}" >
+                              <f:selectItem itemLabel="#{bid.name}" itemValue="#{bid.booksId}">
+                         </f:selectItem>
+                     </c:forEach>   							
+                  </p:selectOneMenu>
+            
             <br> </br>                   
-                    <h:commandButton value="Save"></h:commandButton>
-                                
-          
-        </h:form>         
+            <p:commandButton value="Save" action="#{studentController.addPurchase()}" icon="ui-icon-check" ></p:commandButton>
+           </p:panel>   
+            <p:commandButton value="Back To Main" action="/index" ></p:commandButton>
+            
+        </h:form> 
     </h:body>
 </html>
 
