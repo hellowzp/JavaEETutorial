@@ -12,16 +12,21 @@
             <h:form>
                 
                 <h1><h:outputText value="Create New Author"/></h1>
-                <p:panelGrid columns="2">                    
-                    <p:outputLabel value="ID:" for="id" />
-                    <p:inputText id="id" value="#{authorController.s.id}" title="ID" />
-                    <p:outputLabel value="Name:" for="name" />
-                    <p:inputText id="name" value="#{authorController.s.name}" title="Name" />
-                    <p:outputLabel value="Role:" for="role" />
-                    <p:inputText id="role" value="#{authorController.s.role}" title="Role" />
-                     
-                    <p:commandButton value="Save" action="#{authorController.add()}" icon="ui-icon-check"></p:commandButton>
-                </p:panelGrid>
+                <h:panelGrid columns="2">                    
+                    <h:outputLabel value="ID:" for="id" />
+                    <h:inputText id="id" value="#{authorController.count}"  title="ID" tabindex="1" readonly="true" />     
+                    <h:message id="m1" for="id" style="color:red"/> <p></p>
+                    
+                    <h:outputLabel value="Name:" for="name" />
+                    <p:inputText id="name" value="#{authorController.s.name}"  title="Name" tabindex="2" required="true"   requiredMessage="The Name is required"/>     
+                    <h:message id="m2" for="name" style="color:red"/> <p></p>
+                    
+                    <h:outputLabel value="Role:" for="role" />
+                    <p:inputText id="role" value="#{authorController.s.role}"  title="Role" tabindex="3" required="true"   requiredMessage="The Role is required"/>     
+                    <h:message id="m3" for="role" style="color:red"/> <p></p>
+                    
+                    <h:commandButton value="Save" action="#{authorController.add()}"  ></h:commandButton>
+                </h:panelGrid>
             </h:form>
         </f:view>
 

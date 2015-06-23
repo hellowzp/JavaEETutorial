@@ -5,40 +5,61 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:p="http://primefaces.org/ui">
-      
+
     <h:head>
         <title>Purchase Transaction</title>
+        <script>
+            function displayAlert() {
+                var value = "";
+                if (document.getElementById('purchaseform:validate') !== null) {
+                    value = document.getElementById('purchaseform:validate').value;
+                }
+                
+                if (value === "true") {
+                    alert("Purchase Succeed!");
+                }else{
+                    alert(value);
+                }
+
+            }
+        </script>
     </h:head>
     <h:body>
-        <h:form id="purchaseform"> 
-            
-            
-            <br> </br>
-            <p:panel id="purchase" header="Purchase">
-             <p:outputLabel value="Student:" />
-             <br> </br>
-                 <p:selectOneMenu value="studentid" id="studentid">
-                     <c:forEach var="sid" items="#{studentController.findAll()}" >
-                         <f:selectItem itemLabel="#{sid.name}" itemValue="#{sid.studentId}">
-                         </f:selectItem>
-                     </c:forEach>   							
-                  </p:selectOneMenu>
-             <br> </br>  
-              <p:outputLabel value="Book:" />
-              <br> </br>
-                      <p:selectOneMenu value="bookid" id="bookid">
-                          <c:forEach var="bid" items="#{bookController.findAll()}" >
-                              <f:selectItem itemLabel="#{bid.name}" itemValue="#{bid.booksId}">
-                         </f:selectItem>
-                     </c:forEach>   							
-                  </p:selectOneMenu>
-            
-            <br> </br>                   
-            <p:commandButton value="Save" action="#{studentController.addPurchase()}" icon="ui-icon-check" ></p:commandButton>
-           </p:panel>   
-            <p:commandButton value="Back To Main" action="/index" ></p:commandButton>
-            
-        </h:form> 
+        <f:view>
+            <h:form id="purchaseform"> 
+
+                <h1 align="center"><h:outputText value="Create New Purchase"/></h1>
+
+                <br>  </br>
+                <p:panel id="purchase" header="Purchase">
+                    <p:outputLabel value="Student ID:" />
+                    <h:selectOneMenu value="studentid" id="studentid">
+                        <c:forEach var="sid" items="#{studentController.findAll()}" >
+                            <f:selectItem itemValue="#{sid.studentId}">
+                            </f:selectItem>
+                        </c:forEach>   							
+                    </h:selectOneMenu>
+
+                    <p:outputLabel value="  Book ID:" />
+                    <h:selectOneMenu value="bookid" id="bookid">
+                        <c:forEach var="bid" items="#{bookController.findAll()}" >
+                            <f:selectItem itemValue="#{bid.booksId}">
+                            </f:selectItem>
+                        </c:forEach>   							
+                    </h:selectOneMenu>                                  
+
+                    <br> </br>                 
+                    <p:commandButton value="Purchase" action="#{studentController.AddPurchase()}" oncomplete="displayAlert" ></p:commandButton>
+                    <h:inputHidden id="validate" value="#{studentController.validate}" ></h:inputHidden> 
+
+                </p:panel> 
+                <br> </br>  
+                <p:commandButton value="Home" action="/index" ></p:commandButton>
+                <br> </br>  
+
+
+            </h:form> 
+        </f:view>
     </h:body>
 </html>
 

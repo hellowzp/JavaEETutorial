@@ -2,37 +2,37 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-      
+
     <h:head>
         <title>Student Management</title>
     </h:head>
     <h:body>
         <h:form> 
-            
-              <p:panel id="author" header="Author List">
-                    <p:dataTable var="a" value="#{authorController.findAll()}">
+            <h1 align="center">Welcome to Author management</h1>   
+
+            <p:panel id="author" header="Author List">
+                <p:dataTable var="a" value="#{authorController.findAll()}">
                     <p:column headerText="Id">
                         <h:outputText value="#{a.id}"></h:outputText>
                     </p:column>
                     <p:column headerText="Name">
                         <h:outputText value="#{a.name}"></h:outputText>
-                     </p:column>
+                    </p:column>
                     <p:column headerText="Role">
                         <h:outputText value="#{a.role}"></h:outputText>
                     </p:column>
-                 
+
                     <p:column headerText="Option">
                         <p:commandButton value="Delete" action="#{authorController.delete(a)}" onclick="return confirm('Are you sure?')"></p:commandButton>                     
                         <p:commandButton value=" Edit" action="#{authorController.edit(a)}"> </p:commandButton>
-                 </p:column> 
-             </p:dataTable>
-             </p:panel>
-                <br> </br>
-                <p:commandButton value="Back To Main" action="/index"></p:commandButton>         
-                <p:commandButton value="Add New Author" action="addAuthor"></p:commandButton>    
-        
+                    </p:column> 
+                </p:dataTable>
+            </p:panel>
+
+            <br> </br>
+            <p:button value="Home" outcome="/index" ></p:button>    
+            
         </h:form>         
     </h:body>
 </html>

@@ -33,6 +33,23 @@ public class StudentController implements Serializable {
     private Student s=new Student();
     List<Books> books;
     public int id,sid,bid;
+    public int count;
+  
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count1) {  
+        this.count=count1;//s1.size()+1;
+        
+    }
+    public String findCount(){
+        List<Student> s1= this.studentFacade.findAll();
+        count=s1.size()+1;
+        //System.out.println(count);
+        return "/student/addStudent"; 
+    }
+    
     public List<Books> getBooks() {
         return books;
     }
@@ -55,12 +72,22 @@ public class StudentController implements Serializable {
         this.id = Integer.parseInt(request.getParameter("myform:input"));        
         Student st = studentFacade.find(id);
         books = st.getBooks(); 
-        for(int i = 0; i < books.size(); i++){                
-         System.out.println("BookID " + i + ": " + books.get(i).getName()+ " and ParentID:" + books.get(i).getParentId().toString());
-        // list.add("BookID " + i + ": " + books.get(i).getName()+ " and ParentID:" + books.get(i).getParentId().toString());
-        }
+        //for(int i = 0; i < books.size(); i++){                
+         //System.out.println("BookID " + i + ": " + books.get(i).getName()+ " and ParentID:" + books.get(i).getParentId().toString());
+         //list.add("BookID " + i + ": " + books.get(i).getName()+ " and ParentID:" + books.get(i).getParentId().toString());
+        //}
         return "studentList";
-      }      
+      } 
+    
+    public boolean validate;
+
+    public boolean isValidate() {
+        return validate;
+    }
+
+    public void setValidate(boolean validate) {
+        this.validate = validate;
+    }
      
    public String AddPurchase(){
        HttpServletRequest request = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
@@ -83,22 +110,46 @@ public class StudentController implements Serializable {
  //           System.out.println(books.get(i));
  //      }
        // this.studentFacade.create(this.s.setBooks(books.));
-        return "purchaseList";
+      
+      if (sid==0){
+         setValidate(false);
+         return "purchaseFailed";
+      }else{
+         setValidate(true);
+         return "purchaseSucceed";
+      }
+      
    } 
+  
+   
+   
+   public String save(){
+      HttpServletRequest request = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+      String mg = request.getParameter("empForm:na"); 
+      if (mg.equals("")){
+         setValidate(false);
+      }else{
+         setValidate(true);
+      }
+        System.out.println("Save Successful");
+         return "test";
+    }
+   
+   
     public Student getS() {
         return s;
     }
 
     public void setS(Student s) {
         this.s = s;
-    }
-    
+    }   
    
     public List<Student> findAll(){
-        return this.studentFacade.findAll();
-        }
+        return this.studentFacade.findAll();        
+    }
     
     public String add(){
+        this.s.setStudentId(count);
         this.studentFacade.create(this.s);
         this.s=new Student();        
         return "studentList";

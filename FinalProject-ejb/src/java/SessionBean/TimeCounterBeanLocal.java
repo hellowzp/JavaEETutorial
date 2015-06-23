@@ -5,6 +5,7 @@
  */
 package SessionBean;
 
+import java.util.Date;
 import javax.ejb.Local;
 import javax.ejb.Timer;
 
@@ -21,4 +22,5 @@ public interface TimeCounterBeanLocal {
     public void setNrOfSeconds(int nrOfSeconds);
     public Timer getTime();
     public void setTime(Timer time);
+    public Date getDate();
 }

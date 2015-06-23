@@ -10,6 +10,7 @@ package interceptors;
  * @author sylun
  */
 import java.io.Serializable;
+import java.util.Date;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
@@ -23,12 +24,23 @@ public class LoggingInterceptor implements Serializable{
      @AroundInvoke
     public Object logMethodEntry(InvocationContext invocationContext)
             throws Exception {
-        System.out.println("Entering method: "
-                + invocationContext.getMethod().getName() + " in class "
-                + invocationContext.getMethod().getDeclaringClass().getName());
+        System.out.println("You have accessing method: ("
+                + invocationContext.getMethod().getName() + ") in class: ("
+                + invocationContext.getMethod().getDeclaringClass().getName()+ ") On Date: "
+                + new Date());
+                
 
         return invocationContext.proceed();
     }
+//    @AroundInvoke
+//    public Object logMethodEntry(InvocationContext invocationContext)
+//            throws Exception {
+//        LOGGER.log(Level.INFO, "Entering method: {0} in class {1} at Time {2}.",
+//                new Object[]{invocationContext.getMethod().getName(),
+//                    invocationContext.getMethod().getDeclaringClass().getName(),
+//                    new Date()});
+//        return invocationContext.proceed();
+//    }
     
     /*
     @AroundInvoke

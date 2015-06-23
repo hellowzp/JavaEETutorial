@@ -13,7 +13,8 @@ import javax.persistence.EntityManager;
  *
  * @author SYLUN
  */
- @Logging
+
+ @Logging   //use for keep track of interceptor function
 public abstract class AbstractFacade<T> {
     private Class<T> entityClass;
 

@@ -13,7 +13,7 @@
                 <h1><h:outputText value="Edit Student"/></h1>
                 <p:panelGrid columns="2">
                     <p:outputLabel value="StudentId:" for="studentId" />
-                    <p:inputText readonly="true" id="studentId" value="#{studentController.s.studentId}" title="StudentId" required="true" requiredMessage="The StudentId field is required."/>
+                    <h:inputText readonly="true" id="studentId" value="#{studentController.s.studentId}" title="StudentId" required="true" requiredMessage="The StudentId field is required."/>
                     <p:outputLabel value="Name:" for="name" />
                     <p:inputText id="name" value="#{studentController.s.name}" title="Name" />
                     <p:outputLabel value="Gender:" for="gender" />

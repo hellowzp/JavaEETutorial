@@ -36,7 +36,7 @@ public class NotificationBean implements MessageListener {
         try {
             if (message instanceof TextMessage) {
                 msg = (TextMessage) message;
-                System.out.println("A Message received in MDB: " +
+                System.out.println("A Message received by MDB in server is : " +
                 msg.getText());
             } else {
                System.out.println("Message of wrong type: " +

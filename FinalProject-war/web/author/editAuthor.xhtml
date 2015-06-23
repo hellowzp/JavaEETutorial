@@ -10,15 +10,15 @@
     <h:body>
         <f:view>
             <h:form>
-                <h1><h:outputText value="Edit Author"/></h1>
+                <h1><h:outputText value="Edit New Author"/></h1>
                 <p:panelGrid columns="2">
-                    <p:outputLabel value="AuthorId:" for="id" />
-                    <p:inputText readonly="true" id="studentId" value="#{authorController.s.id}" title="id" required="true" requiredMessage="The AuthorId field is required."/>
-                    <p:outputLabel value="Name:" for="name" />
-                    <p:inputText id="name" value="#{authorController.s.name}" title="Name" />
-                    <p:outputLabel value="Role:" for="role" />
-                    <p:inputText id="role" value="#{authorController.s.role}" title="Role" />                    
-                    <p:commandButton value="Save" action="#{authorController.edit()}" ></h:commandButton>
+                    <h:outputLabel value="AuthorId:" for="id" />
+                    <h:inputText readonly="true" id="studentId" value="#{authorController.s.id}" title="id" required="true" requiredMessage="The AuthorId field is required."/>
+                    <h:outputLabel value="Name:" for="name" />
+                    <h:inputText id="name" value="#{authorController.s.name}" title="Name" />
+                    <h:outputLabel value="Role:" for="role" />
+                    <h:inputText id="role" value="#{authorController.s.role}" title="Role" />                    
+                    <p:commandButton value="Save" action="#{authorController.edit()}" ></p:commandButton>
                 </p:panelGrid>
             </h:form>
         </f:view>

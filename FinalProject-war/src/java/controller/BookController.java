@@ -50,7 +50,22 @@ public class BookController implements Serializable{
         this.b = b;
     }
     
-    
+    public int count;
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count1) {         
+       // List<Student> s1= this.studentFacade.findAll();
+        this.count=count1;//s1.size()+1;
+        
+    }
+    public String findCount(){
+        List<Books> b1= this.booksFacade.findAll();
+        count=b1.size()+1; 
+        return "/book/addBook"; 
+    }
     
        
     public int id;
@@ -91,7 +106,8 @@ public class BookController implements Serializable{
        this.aid = Integer.parseInt(request.getParameter("addbooks:parentId")); 
        Author author= this.authorFacade.find(aid); 
        b.setParentId(author);
-        
+       
+       this.b.setBooksId(count);
        this.booksFacade.create(this.b);
        this.b=new Books();        
        return "bookList";

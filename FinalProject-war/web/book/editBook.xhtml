@@ -11,20 +11,19 @@
     <h:body>
         <f:view>
             <h:form id="editbooks">
-                
                 <h1><h:outputText value="Edit Book"/></h1>
                 <p:panelGrid columns="2">
                     <p:outputLabel value="BookId:" for="booksId" />
-                    <p:inputText readonly="true" id="booksId" value="#{bookController.b.booksId}" title="BooksId" required="true" requiredMessage="The BooksId field is required."/>
+                    <h:inputText readonly="true" id="booksId" value="#{bookController.b.booksId}" title="BooksId" required="true" requiredMessage="The BooksId field is required."/>
                     <p:outputLabel value="Name:" for="name" />
                     <p:inputText id="name" value="#{bookController.b.name}" title="Name" />
                    <p:outputLabel value="AuthorID:" for="parentId" />
-                   <p:selectOneMenu value="parentId" id="parentId">
+                   <h:selectOneMenu value="parentId" id="parentId">
                              <c:forEach var="aid" items="#{authorController.findAll()}" >
                                  <f:selectItem itemValue="#{aid.id}">
                                  </f:selectItem>
                             </c:forEach>   							
-                  </p:selectOneMenu> 
+                  </h:selectOneMenu> 
                     
                     <p:commandButton value="Save" action="#{bookController.edit()}" ></p:commandButton>
                 </p:panelGrid>

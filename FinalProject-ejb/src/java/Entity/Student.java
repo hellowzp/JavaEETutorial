@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Entity;
 
 import java.io.Serializable;
@@ -11,6 +7,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -47,8 +45,9 @@ public class Student implements Serializable {
     @Size(max = 100)
     @Column(name = "NAME")
     private String name;
-    @Size(max = 20)
+
     @Column(name = "GENDER")
+//    @Enumerated(EnumType.STRING)
     private String gender;
     @Column(name = "AGE")
     private Integer age;
@@ -56,8 +55,7 @@ public class Student implements Serializable {
     @ManyToMany(cascade=CascadeType.ALL,fetch = FetchType.EAGER)   
     @JoinTable(name = "PURCHASE", joinColumns = {
         @JoinColumn(name = "STU_ID", referencedColumnName = "STUDENT_ID")}, inverseJoinColumns = {
-        @JoinColumn(name = "BO_ID", referencedColumnName = "BOOKS_ID")})
-    
+        @JoinColumn(name = "BO_ID", referencedColumnName = "BOOKS_ID")})  
     private List<Books> books;
     
     public Student() {
@@ -116,20 +114,16 @@ public class Student implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Student)) {
             return false;
         }
         Student other = (Student) object;
-        if ((this.studentId == null && other.studentId != null) || (this.studentId != null && !this.studentId.equals(other.studentId))) {
-            return false;
-        }
-        return true;
+        return this.studentId.equals(other.studentId);
     }
 
     @Override
     public String toString() {
-        return "Entity.Student[ studentId=" + studentId + " ]";
+        return "Entity.Student[ Id=" + studentId + " name=" + name + " ]";
     }
     
 }

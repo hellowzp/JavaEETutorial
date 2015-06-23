@@ -5,6 +5,7 @@
  */
 package SessionBean;
 
+import java.util.Date;
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
 import javax.ejb.Timer;
@@ -16,12 +17,19 @@ import javax.ejb.Timer;
 @Singleton
 public class TimeCounterBean implements TimeCounterBeanLocal {    
     private Timer time;
-
+    private Date date;
+    
+    @Override
+    public Date getDate() {
+       date = new Date();
+	return date;
+    }
     @Override
     public int getNrOfSeconds() {
         return nrOfSeconds;
     }
-
+    
+    
     @Override
     public Timer getTime() {
         return time;
@@ -37,6 +45,9 @@ public class TimeCounterBean implements TimeCounterBeanLocal {
         this.nrOfSeconds = nrOfSeconds;
     }
     private int nrOfSeconds = 0;
+    //Setting an attribute to an asterisk symbol (*) represents all allowable values for the attribute.    
+    //persistent Specifies whether the server uses the EJB timer service scheduler
+    //to persist the timer. By default, automatic timers are persistent.
     
     @Schedule(minute = "*", second = "*", hour = "*", persistent = false)
     @Override

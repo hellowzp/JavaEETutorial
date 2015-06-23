@@ -34,10 +34,25 @@ public class AuthorController implements Serializable{
     public void setS(Author a) {
         this.a = a;
     }
+   
+    public int count;
+ 
     
-    /**
-     * Creates a new instance of AuthorController
-     */
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count1) {       
+        
+        this.count=count1;//s1.size()+1;
+        
+    }
+    public String findCount(){
+        List<Author> a1= this.authorFacade.findAll();
+        count=a1.size()+1;         
+        return "/author/addAuthor";
+     }
+    
     public AuthorController() {
     }
     
@@ -46,7 +61,7 @@ public class AuthorController implements Serializable{
         }
     
     public String add(){
-        
+        this.a.setId(count);
         this.authorFacade.create(this.a);
         this.a=new Author();        
         return "authorList";
