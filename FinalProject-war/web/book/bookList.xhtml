@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
@@ -38,10 +39,15 @@
             <br> </br>
             <p:panel id="search" header="Search">
                 <p:outputLabel value="Search Students that bought from BOOKID:" />             
-                <h:inputText id="input" size="10"/> <!-- no binding here -->
+                <h:selectOneMenu value="bookid" id="input">
+                    <c:forEach var="bid" items="#{bookController.findAll()}" >
+                        <f:selectItem itemValue="#{bid.booksId}">
+                        </f:selectItem>
+                    </c:forEach>   							
+                </h:selectOneMenu>
                 <h:commandButton value=" Search" action="#{bookController.SearchStudents()}" />
                 <br>  </br>  
-                <p> Here is the list of the student that bought BookID: #{bookController.id}</p>
+                <p> Here is the list of the student that bought Book ID: #{bookController.id}</p>
 
                 <p:dataTable var="s" value="#{bookController.students}">
                     <p:column>

@@ -1,71 +1,64 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
- 
- <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:p="http://primefaces.org/ui">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>        
         <title>Student Management</title>
     </h:head>
     <h:body>
         <h:form id="myform">  
-            
+
             <h1 align="center">Welcome to student Management</h1>
-             <br> </br>
-             <p:panel id="student" header="List of All Students">
-             <p:dataTable var="s" value="#{studentController.findAll()}">
-                 <p:column headerText="Id">
-                    <h:outputText value="#{s.studentId}"></h:outputText>
-                 </p:column>
-                 <p:column headerText="Name">
-                     <h:outputText value="#{s.name}"></h:outputText>
-                 </p:column>
-                 <p:column headerText="Gender">
-                     <h:outputText value="#{s.gender}"></h:outputText>
-                 </p:column>
-                 <p:column headerText="Age">
-                     <h:outputText value="#{s.age}"></h:outputText>
-                 </p:column>
-                 <p:column headerText="Option">
-                      <p:commandButton value="Delete" action="#{studentController.delete(s)}" onclick="return confirm('Are you sure?')"></p:commandButton>                     
-                      <p:commandButton value=" Edit" action="#{studentController.edit(s)}"> </p:commandButton>
-                 </p:column>                
-             
-             </p:dataTable>
-             </p:panel>
-             
+            <p:panel id="student" header="List of All Students">
+                <p:dataTable var="s" value="#{studentController.findAll()}">
+                    <p:column headerText="Id">
+                        <h:outputText value="#{s.studentId}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Name">
+                        <h:outputText value="#{s.name}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Gender">
+                        <h:outputText value="#{s.gender}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Age">
+                        <h:outputText value="#{s.age}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Option">
+                        <p:commandButton value="Delete" action="#{studentController.delete(s)}" onclick="return confirm('Are you sure?')"></p:commandButton>                     
+                        <p:commandButton value=" Edit" action="#{studentController.edit(s)}"> </p:commandButton>
+                    </p:column>                
+
+                </p:dataTable>
+            </p:panel>
+
             <br> </br>
+
+            <p:panel id="Search" header="Search">
+                <h:outputLabel value="Search Books that bought from studentID:" />             
+                <h:inputText id="input" size="10"/> <!-- no binding here -->
+                <h:commandButton value="Search" action="#{studentController.SearchBooks()}" />
+
+
+                <p> Here is the list of the book that bought from student ID: #{studentController.id}</p>
+
+                <p:dataTable var="b" value="#{studentController.books}">
+                    <p:column headerText="Id">
+                        <h:outputText value="#{b.booksId}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Name">
+                        <h:outputText value="#{b.name}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="AuthorID">
+                        <h:outputText value="#{b.parentId.id}"></h:outputText>
+                    </p:column>
+
+                </p:dataTable>
+            </p:panel>            
+
+            <p:button value="Home" outcome="/index" ></p:button>         
             
-             <p:panel id="Search" header="Search">
-                 <h:outputLabel value="Search Books that bought from studentID:" />             
-            <h:inputText id="input" size="10"/> <!-- no binding here -->
-            <h:commandButton value="Search" action="#{studentController.SearchBooks()}" />
-             
-            
-             <br>  </br>  
-              <h2> Here is the list of the book that bought from studentID: #{studentController.id}</h2>
-               
-                 <p:dataTable var="b" value="#{studentController.books}">
-                 <p:column headerText="Id">
-                    <h:outputText value="#{b.booksId}"></h:outputText>
-                 </p:column>
-                 <p:column headerText="Name">
-                     <h:outputText value="#{b.name}"></h:outputText>
-                 </p:column>
-                 <p:column headerText="AuthorID">
-                     <h:outputText value="#{b.parentId.id}"></h:outputText>
-                 </p:column>
-             
-             </p:dataTable>
-             </p:panel>            
-            
-             
-        <br>  </br>
-          <p:button value="Home" outcome="/index" ></p:button>         
-         <!--
-         <p:commandButton value="Add New Student" action="addStudent"></p:commandButton>           
-                <br>  </br>
-         -->
         </h:form>         
     </h:body>
 </html>
